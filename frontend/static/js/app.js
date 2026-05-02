@@ -140,7 +140,8 @@ const LoginPage = {
           <div class="mb-2">
             <label class="block text-sm font-medium text-slate-600 mb-2">Password</label>
             <div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">lock</span>
-            <input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-4 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="password" id="login-password" placeholder="Your password"></div>
+            <input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-10 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="password" id="login-password" placeholder="Your password">
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px] cursor-pointer hover:text-slate-600 transition-colors" id="toggle-login-password" title="Toggle Password Visibility">visibility</span></div>
           </div>
           <div class="text-right mb-6"><a class="text-xs text-primary hover:text-primary-hover cursor-pointer transition-colors" id="forgot-link">Forgot password?</a></div>
           <button class="w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 rounded-lg transition-colors text-sm shadow-sm" id="login-btn">Sign In</button>
@@ -150,6 +151,17 @@ const LoginPage = {
     </div>`;
   },
   bind() {
+    document.getElementById('toggle-login-password')?.addEventListener('click', (e) => {
+      const input = document.getElementById('login-password');
+      if (input.type === 'password') {
+        input.type = 'text';
+        e.target.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        e.target.textContent = 'visibility';
+      }
+    });
+
     document.getElementById('go-signup')?.addEventListener('click', () => Router.navigate('signup'));
     document.getElementById('login-btn')?.addEventListener('click', async () => {
       const email = document.getElementById('login-email').value.trim();
@@ -199,7 +211,7 @@ const SignupPage = {
           <div class="mb-4"><label class="block text-sm font-medium text-slate-600 mb-2">Full Name</label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">person</span><input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-4 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="text" id="su-name" placeholder="Anish Singh"></div></div>
           <div class="mb-4"><label class="block text-sm font-medium text-slate-600 mb-2">City</label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">location_on</span><input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-4 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="text" id="su-city" placeholder="Bhopal"></div></div>
           <div class="mb-4"><label class="block text-sm font-medium text-slate-600 mb-2">Email address</label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">mail</span><input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-4 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="email" id="su-email" placeholder="you@example.com"></div></div>
-          <div class="mb-4"><label class="block text-sm font-medium text-slate-600 mb-2">Password</label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">lock</span><input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-4 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="password" id="su-password" placeholder="Min 8 characters"></div></div>
+          <div class="mb-4"><label class="block text-sm font-medium text-slate-600 mb-2">Password</label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">lock</span><input class="w-full bg-slate-50 border border-slate-200 rounded-lg py-3 pl-10 pr-10 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors" type="password" id="su-password" placeholder="Min 8 characters"><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px] cursor-pointer hover:text-slate-600 transition-colors" id="toggle-su-password" title="Toggle Password Visibility">visibility</span></div></div>
           <p class="text-xs text-slate-400 mb-6">By signing up you agree to our Terms & Conditions.</p>
           <button class="w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 rounded-lg transition-colors text-sm shadow-sm" id="signup-btn">Create Account</button>
           <div class="text-center mt-6 text-sm text-slate-500">Already have an account? <a class="text-primary hover:text-primary-hover cursor-pointer font-medium" id="go-login">Sign in</a></div>
@@ -208,6 +220,17 @@ const SignupPage = {
     </div>`;
   },
   bind() {
+    document.getElementById('toggle-su-password')?.addEventListener('click', (e) => {
+      const input = document.getElementById('su-password');
+      if (input.type === 'password') {
+        input.type = 'text';
+        e.target.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        e.target.textContent = 'visibility';
+      }
+    });
+
     document.getElementById('go-login')?.addEventListener('click', () => Router.navigate('login'));
     document.getElementById('signup-btn')?.addEventListener('click', async () => {
       const name = document.getElementById('su-name').value.trim();
