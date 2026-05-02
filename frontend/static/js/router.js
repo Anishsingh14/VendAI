@@ -3,8 +3,13 @@
 const Router = {
   state: {},
 
-  navigate(page, state = {}) {
+  navigate(page, state = {}, replace = false) {
     this.state = state;
+    if (replace) {
+      history.replaceState({ page, state }, '', '#' + page);
+    } else {
+      history.pushState({ page, state }, '', '#' + page);
+    }
     this.render(page);
   },
 
@@ -12,14 +17,13 @@ const Router = {
     const app = document.getElementById('app');
     const isLoggedIn = !!localStorage.getItem('vendai_token');
 
-    // Guard: redirect to login if not authenticated
     const publicPages = ['landing', 'login', 'signup'];
     if (!isLoggedIn && !publicPages.includes(page)) {
-      this.render('landing');
+      this.navigate('landing', {}, true);
       return;
     }
     if (isLoggedIn && publicPages.includes(page)) {
-      this.render('dashboard');
+      this.navigate('dashboard', {}, true);
       return;
     }
 
@@ -35,10 +39,21 @@ const Router = {
       case 'insights':  app.innerHTML = InsightsPage.render(); InsightsPage.load(); break;
       case 'alerts':    app.innerHTML = AlertsPage.render(); AlertsPage.load(); break;
       case 'profile':   app.innerHTML = ProfilePage.render(); ProfilePage.load(); break;
-      default:          this.render('dashboard');
+      default:          this.navigate('dashboard', {}, true); return; // return here to avoid double execution on default
     }
 
-    // Bind sidebar nav after render
     setTimeout(bindSidebarNav, 0);
   }
 };
+
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.page) {
+    Router.state = event.state.state || {};
+    Router.render(event.state.page);
+  } else {
+    let hash = window.location.hash.replace('#', '');
+    if (!hash) hash = !!localStorage.getItem('vendai_token') ? 'dashboard' : 'landing';
+    Router.state = {};
+    Router.render(hash);
+  }
+});

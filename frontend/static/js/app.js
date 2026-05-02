@@ -237,5 +237,14 @@ const SignupPage = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const isLoggedIn = !!localStorage.getItem('vendai_token');
-  Router.render(isLoggedIn ? 'dashboard' : 'landing');
+  let hash = window.location.hash.replace('#', '');
+  
+  // Clean up any stray URLs that shouldn't load directly via hash
+  if (!hash) {
+    hash = isLoggedIn ? 'dashboard' : 'landing';
+  }
+  
+  // Replace the initial state so the first 'back' works properly
+  history.replaceState({ page: hash, state: {} }, '', '#' + hash);
+  Router.render(hash);
 });
