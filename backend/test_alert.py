@@ -1,3 +1,4 @@
+import sys
 from app import create_app
 import json
 
@@ -5,5 +6,8 @@ app = create_app()
 app.testing = True
 client = app.test_client()
 
-# Need to mock the user ID in the headers to get the email correctly, but let's see.
-# I'll just look at the code.
+# We need to simulate the X-User-ID header
+res = client.post('/api/auth/test-alert', headers={'X-User-ID': '12345678-1234-1234-1234-123456789012'})
+print("Status:", res.status_code)
+print("Data:", res.data)
+

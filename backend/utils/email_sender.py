@@ -36,9 +36,16 @@ def _send_email(to_email: str, subject: str, html_body: str, plain_body: str = '
     msg.attach(MIMEText(plain_body, 'plain'))
     msg.attach(MIMEText(html_body, 'html'))
 
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-        server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
-        server.sendmail(GMAIL_USER, to_email, msg.as_string())
+    try:
+        # Added a 3-second timeout to prevent server crashes if Render blocks the port
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=3) as server:
+            server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+            server.sendmail(GMAIL_USER, to_email, msg.as_string())
+    except Exception as e:
+        print(f"[EmailSender] Failed to send email to {to_email}. Error: {e}")
+        # We catch the exception so that if email fails (e.g. Render port block),
+        # it does not crash the entire CSV upload pipeline!
+        raise e
 
 
 def _email_template(header_text: str, header_color: str, body_html: str, cta_text: str = '', cta_url: str = ''):
