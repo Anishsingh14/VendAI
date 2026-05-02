@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VendAI - Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+          mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+        },
+        colors: {
+          slate: {
+            400: '#94a3b8',
+            800: '#1e293b',
+            900: '#0f172a',
+            950: '#020617',
+          },
+          indigo: {
+            400: '#818cf8',
+            500: '#6366f1',
+            600: '#4f46e5',
+          },
+          red: {
+            400: '#f87171',
+            500: '#ef4444',
+          },
+          yellow: {
+            400: '#facc15',
+            500: '#eab308',
+          },
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #0f172a;
+    color: #f8fafc;
+  }
+</style>
+</head>
+<body class="font-sans antialiased text-slate-200 bg-slate-900 min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col p-4 bg-slate-900 w-64 border-r border-white/5 z-20">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-8 h-8 rounded bg-indigo-500 flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+        V
+      </div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-white">VendAI</h1>
+<p class="text-xs text-slate-400">AI Inventory Intelligence</p>
+</div>
+</div>
+<div class="space-y-1 flex-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">precision_manufacturing</span>
+<span class="text-sm font-medium">Machines</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">online_prediction</span>
+<span class="text-sm font-medium">Predictions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-md text-indigo-400 bg-white/5 font-semibold opacity-90 transition-all duration-150" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+<span class="text-sm">Alerts</span>
+</div>
+<span class="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</a>
+</div>
+<div class="mt-auto space-y-4">
+<button class="w-full bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium py-2 px-4 rounded-md transition-colors shadow-[0_0_10px_rgba(99,102,241,0.2)]">
+        Run Prediction
+      </button>
+<div class="pt-4 border-t border-white/5 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 flex justify-between items-center h-16 px-8 ml-64 w-[calc(100%-16rem)] bg-slate-950/80 backdrop-blur-md border-b border-white/5 z-10 font-sans text-sm">
+<div class="flex items-center gap-6">
+<!-- Search would go here based on search_bar: "on_left" -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-white/5 border border-white/10 rounded-md pl-9 pr-4 py-1.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-200 placeholder-slate-500 w-64 transition-all" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="flex items-center gap-6">
+<a class="text-slate-400 hover:text-white transition-colors" href="#">Docs</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">API</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">Status</a>
+</nav>
+<div class="flex items-center gap-4 border-l border-white/10 pl-6">
+<button class="text-slate-400 hover:text-white transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-slate-950"></span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-8 w-full flex gap-8 max-w-7xl mx-auto">
+<!-- Left Column: Alerts & History -->
+<div class="flex-1 space-y-8">
+<!-- Header & Filters -->
+<div class="flex items-end justify-between">
+<div>
+<h2 class="text-3xl font-bold text-white tracking-tight mb-4">Alerts</h2>
+<div class="flex space-x-1 bg-white/5 p-1 rounded-lg border border-white/5 w-fit">
+<button class="px-4 py-1.5 text-sm font-medium rounded-md bg-white/10 text-white shadow-sm">All</button>
+<button class="px-4 py-1.5 text-sm font-medium rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors">Critical</button>
+<button class="px-4 py-1.5 text-sm font-medium rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors">Warning</button>
+<button class="px-4 py-1.5 text-sm font-medium rounded-md text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors">Info</button>
+</div>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+          Alert Settings
+        </button>
+</div>
+<!-- Active Alerts Stack -->
+<div class="space-y-4">
+<!-- Alert 1 (URGENT) -->
+<div class="bg-slate-800/50 rounded-xl border border-white/5 border-l-4 border-l-red-500 p-5 flex flex-col gap-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2"></div>
+<div class="flex items-start gap-4">
+<div class="mt-1 text-red-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-white">URGENT — KitKat Chocolate Stockout Imminent</h3>
+<span class="text-xs text-slate-500 font-mono">1 hour ago</span>
+</div>
+<p class="text-sm text-slate-300 leading-relaxed mb-3">Predicted to run out by May 5, 2026. Current stock: <span class="font-mono text-white">8 units</span>. Confidence: <span class="font-mono text-red-400">85.1%</span></p>
+<div class="flex items-center gap-2 mb-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-white/5 border border-white/10 text-xs font-medium text-slate-300">
+<span class="material-symbols-outlined text-[14px]">precision_manufacturing</span>
+                  1st Floor Machine
+                </span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-1.5 text-xs font-medium bg-red-500 hover:bg-red-600 text-white rounded transition-colors shadow-sm">Send Email Alert</button>
+<button class="px-3 py-1.5 text-xs font-medium bg-transparent border border-white/10 hover:bg-white/5 text-slate-300 rounded transition-colors">Mark Resolved</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Alert 2 (WARNING) -->
+<div class="bg-slate-800/50 rounded-xl border border-white/5 border-l-4 border-l-yellow-500 p-5 flex flex-col gap-4 relative overflow-hidden">
+<div class="flex items-start gap-4">
+<div class="mt-1 text-yellow-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-semibold text-white">WARNING — Mineral Water 500ml Below 50%</h3>
+<span class="text-xs text-slate-500 font-mono">3 hours ago</span>
+</div>
+<p class="text-sm text-slate-300 leading-relaxed mb-3">Stock at <span class="font-mono text-white">15 units</span>, depleting faster than average. Predicted depletion: May 8, 2026.</p>
+<div class="flex items-center gap-2 mb-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-white/5 border border-white/10 text-xs font-medium text-slate-300">
+<span class="material-symbols-outlined text-[14px]">precision_manufacturing</span>
+                  1st Floor Machine
+                </span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-1.5 text-xs font-medium bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/20 text-yellow-400 rounded transition-colors">Send Email Alert</button>
+<button class="px-3 py-1.5 text-xs font-medium bg-transparent border border-white/10 hover:bg-white/5 text-slate-300 rounded transition-colors">Mark Resolved</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Alert 3 (WARNING) -->
+<div class="bg-slate-800/50 rounded-xl border border-white/5 border-l-4 border-l-yellow-500 p-5 flex flex-col gap-4">
+<div class="flex items-start gap-4">
+<div class="mt-1 text-yellow-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-semibold text-white">WARNING — Lays Classic Approaching Threshold</h3>
+<span class="text-xs text-slate-500 font-mono">5 hours ago</span>
+</div>
+<p class="text-sm text-slate-300 leading-relaxed">Stock at <span class="font-mono text-white">28 units</span>. Seasonal demand spike expected next week.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Alert History -->
+<div class="pt-8">
+<h3 class="text-lg font-medium text-white mb-4">Alert History</h3>
+<div class="bg-slate-800/30 rounded-xl border border-white/5 overflow-hidden">
+<table class="w-full text-left text-sm whitespace-nowrap">
+<thead class="bg-slate-800/50 border-b border-white/5 text-slate-400 font-medium">
+<tr>
+<th class="px-6 py-3 font-mono text-xs uppercase tracking-wider">Date</th>
+<th class="px-6 py-3 font-mono text-xs uppercase tracking-wider">Product</th>
+<th class="px-6 py-3 font-mono text-xs uppercase tracking-wider">Type</th>
+<th class="px-6 py-3 font-mono text-xs uppercase tracking-wider">Machine</th>
+<th class="px-6 py-3 font-mono text-xs uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4 font-mono text-slate-400">May 1, 14:30</td>
+<td class="px-6 py-4 text-slate-200">Pepsi 250ml</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">Critical</span>
+</td>
+<td class="px-6 py-4 text-slate-400">Lobby A</td>
+<td class="px-6 py-4 text-slate-400">Sent</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4 font-mono text-slate-400">May 1, 09:15</td>
+<td class="px-6 py-4 text-slate-200">Sanitary Pads (L)</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">Warning</span>
+</td>
+<td class="px-6 py-4 text-slate-400">Restroom 2</td>
+<td class="px-6 py-4 text-slate-400">Resolved</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4 font-mono text-slate-400">Apr 30, 18:00</td>
+<td class="px-6 py-4 text-slate-200">Paracetamol</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">Critical</span>
+</td>
+<td class="px-6 py-4 text-slate-400">Pharmacy Kiosk</td>
+<td class="px-6 py-4 text-slate-400">Sent</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4 font-mono text-slate-400">Apr 29, 11:20</td>
+<td class="px-6 py-4 text-slate-200">Snickers Bar</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">Info</span>
+</td>
+<td class="px-6 py-4 text-slate-400">Breakroom</td>
+<td class="px-6 py-4 text-slate-400">Resolved</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4 font-mono text-slate-400">Apr 28, 16:45</td>
+<td class="px-6 py-4 text-slate-200">Diet Coke</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">Warning</span>
+</td>
+<td class="px-6 py-4 text-slate-400">Lobby B</td>
+<td class="px-6 py-4 text-slate-400">Resolved</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Alert Settings -->
+<div class="w-80 shrink-0">
+<div class="sticky top-24 bg-slate-800/30 rounded-xl border border-white/5 p-6 backdrop-blur-sm">
+<h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+          Alert Settings
+        </h3>
+<div class="space-y-6">
+<!-- Notifications Toggle -->
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-medium text-slate-200">Email Notifications</p>
+<p class="text-xs text-slate-400">Receive urgent alerts</p>
+</div>
+<button class="relative inline-flex h-5 w-9 items-center rounded-full bg-indigo-500 transition-colors focus:outline-none">
+<span class="inline-block h-3.5 w-3.5 translate-x-4 rounded-full bg-white transition-transform"></span>
+</button>
+</div>
+<!-- Email Input -->
+<div>
+<label class="block text-xs font-medium text-slate-400 mb-1.5">Notification Email</label>
+<input class="w-full bg-slate-900 border border-white/10 rounded-md px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono" type="email" value="anishsingh18777@gmail.com"/>
+</div>
+<div class="h-px bg-white/5 w-full"></div>
+<!-- Thresholds -->
+<div>
+<p class="text-sm font-medium text-slate-200 mb-4">Global Thresholds</p>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between mb-1">
+<label class="text-xs text-yellow-400 font-medium">Warning</label>
+<span class="text-xs text-slate-400 font-mono">50%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-yellow-500 w-1/2"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<label class="text-xs text-red-400 font-medium">Critical</label>
+<span class="text-xs text-slate-400 font-mono">20%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-red-500 w-1/5"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px bg-white/5 w-full"></div>
+<!-- Priority Products -->
+<div>
+<p class="text-sm font-medium text-slate-200 mb-3">Priority Tracking</p>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-4 h-4 rounded border border-indigo-500 bg-indigo-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-white font-bold">check</span>
+</div>
+<span class="text-sm text-slate-300 group-hover:text-slate-200 transition-colors">Sanitary Pads</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-4 h-4 rounded border border-indigo-500 bg-indigo-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-white font-bold">check</span>
+</div>
+<span class="text-sm text-slate-300 group-hover:text-slate-200 transition-colors">Paracetamol</span>
+</label>
+</div>
+</div>
+<div class="h-px bg-white/5 w-full"></div>
+<!-- Quiet Hours -->
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-medium text-slate-200">Quiet Hours</p>
+<p class="text-xs text-slate-400 font-mono">10PM - 7AM</p>
+</div>
+<button class="relative inline-flex h-5 w-9 items-center rounded-full bg-indigo-500 transition-colors focus:outline-none">
+<span class="inline-block h-3.5 w-3.5 translate-x-4 rounded-full bg-white transition-transform"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

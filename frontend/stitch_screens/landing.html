@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VendAI - AI-Powered Inventory Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        canvas: "#0F172A",
+                        surface: "#1E293B",
+                        primary: "#6366F1",
+                        success: "#22C55E",
+                        warning: "#F59E0B",
+                        danger: "#EF4444"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="sticky top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 shadow-xl">
+<div class="flex justify-between items-center h-16 px-6 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-xl font-bold text-white tracking-tighter flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-indigo-500" data-icon="bolt">bolt</span>
+                    VendAI
+                </a>
+<div class="hidden md:flex gap-1 items-center">
+<a class="font-sans text-sm font-medium tracking-tight text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 rounded-lg px-3 py-1" href="#features">Features</a>
+<a class="font-sans text-sm font-medium tracking-tight text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 rounded-lg px-3 py-1" href="#how-it-works">How It Works</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden md:block text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">Log In</a>
+<a class="font-sans text-sm font-medium tracking-tight text-white bg-indigo-500 hover:bg-indigo-600 transition-colors duration-200 rounded-lg px-4 py-2 active:scale-95 shadow-lg shadow-indigo-500/25" href="#">Get Started Free</a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="pt-32 pb-20 px-6 relative overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-canvas to-canvas -z-10"></div>
+<div class="max-w-4xl mx-auto text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-medium tracking-wider mb-8">
+<span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                    AI-POWERED INVENTORY INTELLIGENCE
+                </div>
+<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 text-white">
+                    Know before you <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">run out.</span>
+</h1>
+<p class="text-xl md:text-2xl text-slate-400 mb-10 max-w-3xl mx-auto font-medium leading-relaxed">
+                    Smart stockout predictions for campus vending machines. Upload your data and our engine predicts exactly when each product will deplete.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+<a class="w-full sm:w-auto px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-semibold text-lg transition-all shadow-lg shadow-indigo-500/25" href="#">Start Predicting Free</a>
+<a class="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/10 hover:bg-white/5 text-slate-300 rounded-lg font-semibold text-lg transition-all" href="#how-it-works">See How It Works</a>
+</div>
+</div>
+<!-- Hero Mockup -->
+<div class="mt-20 max-w-6xl mx-auto relative">
+<div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl blur opacity-20"></div>
+<div class="relative bg-surface border border-white/10 rounded-xl shadow-2xl overflow-hidden aspect-video">
+<img alt="VendAI Dashboard Mockup" class="w-full h-full object-cover opacity-80" data-alt="A sleek, futuristic digital dashboard interface displayed on a dark monitor, showing a complex but clean color-coded calendar grid and data visualizations. The interface uses a dark mode aesthetic with deep slate blues and vibrant indigo accents. The scene is illuminated by soft, moody studio lighting reflecting off the screen, creating a high-end, professional SaaS product vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Kbho9XVryg4uYdDuOLn26ZpQbrphfXKxoi8C7CwTaD5DnktejWRdz04SDf8vuSvKYhCPWQjbOXiGdupmvW6ptnP1N-3OQLAQVJQC0_gHWB-9bf1718niz9ABZjDf9cdvQcMQjOKYIkOF4p7zb1eflXFymTxdIer2LHT2KeJTdoSHag9SuhsyAF6gDXO5mARJdvySRy3DiN0VhOagNMxlfS8_iJckEbxzlo2Uy84ewpkatcNufnV_U-Cj9B6pwWmbRvql10lwIfFm"/>
+</div>
+</div>
+</section>
+<!-- Social Proof -->
+<section class="py-10 border-y border-white/5 bg-slate-900/50">
+<div class="max-w-7xl mx-auto px-6 text-center">
+<p class="text-sm font-mono text-slate-500 uppercase tracking-widest mb-6">Trusted by campus operators</p>
+<div class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale">
+<div class="text-xl font-bold font-sans">College of Engineering</div>
+<div class="text-xl font-bold font-sans">City University</div>
+<div class="text-xl font-bold font-sans">State Tech</div>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="py-24 px-6 max-w-7xl mx-auto" id="features">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need to stay stocked.</h2>
+<p class="text-slate-400 text-lg">Powerful features wrapped in a simple interface.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="bg-surface p-8 rounded-xl border border-white/[0.06] hover:border-indigo-500/30 transition-colors">
+<div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-indigo-400" data-icon="online_prediction">online_prediction</span>
+</div>
+<h3 class="text-xl font-semibold mb-3 text-white">Predict Stockouts</h3>
+<p class="text-slate-400 leading-relaxed text-sm">Advanced algorithms analyze historical sales data to forecast exactly when machines will run empty.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface p-8 rounded-xl border border-white/[0.06] hover:border-indigo-500/30 transition-colors">
+<div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-indigo-400" data-icon="notifications_active">notifications_active</span>
+</div>
+<h3 class="text-xl font-semibold mb-3 text-white">Smart Alerts</h3>
+<p class="text-slate-400 leading-relaxed text-sm">Receive proactive notifications before critical inventory levels are reached, preventing lost sales.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface p-8 rounded-xl border border-white/[0.06] hover:border-indigo-500/30 transition-colors">
+<div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-indigo-400" data-icon="star">star</span>
+</div>
+<h3 class="text-xl font-semibold mb-3 text-white">Priority Products</h3>
+<p class="text-slate-400 leading-relaxed text-sm">Identify and prioritize high-velocity items that drive the majority of your campus revenue.</p>
+</div>
+<!-- Feature 4 -->
+<div class="bg-surface p-8 rounded-xl border border-white/[0.06] hover:border-indigo-500/30 transition-colors">
+<div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-indigo-400" data-icon="upload_file">upload_file</span>
+</div>
+<h3 class="text-xl font-semibold mb-3 text-white">CSV Upload</h3>
+<p class="text-slate-400 leading-relaxed text-sm">Seamlessly import your existing telemetry or sales reports. No complex API integrations required.</p>
+</div>
+<!-- Feature 5 -->
+<div class="bg-surface p-8 rounded-xl border border-white/[0.06] hover:border-indigo-500/30 transition-colors">
+<div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-indigo-400" data-icon="calendar_month">calendar_month</span>
+</div>
+<h3 class="text-xl font-semibold mb-3 text-white">Seasonal Intelligence</h3>
+<p class="text-slate-400 leading-relaxed text-sm">Accounts for campus rhythms—finals week, holidays, and events—adjusting predictions automatically.</p>
+</div>
+<!-- Feature 6 -->
+<div class="bg-surface p-8 rounded-xl border border-white/[0.06] hover:border-indigo-500/30 transition-colors">
+<div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-indigo-400" data-icon="money_off">money_off</span>
+</div>
+<h3 class="text-xl font-semibold mb-3 text-white">Zero Cost</h3>
+<p class="text-slate-400 leading-relaxed text-sm">Start optimizing your routes immediately with our fully featured free tier. Upgrade only when you scale.</p>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="py-24 bg-slate-900/50 border-y border-white/5" id="how-it-works">
+<div class="max-w-5xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4">How it works</h2>
+<p class="text-slate-400 text-lg">Three steps from reactive to predictive.</p>
+</div>
+<div class="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-12 md:gap-0">
+<!-- Connecting Line -->
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2 z-0 border-t border-dashed border-white/20"></div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center text-center w-full md:w-1/3 px-4">
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-indigo-500 flex items-center justify-center text-xl font-bold mb-6 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                            1
+                        </div>
+<h4 class="text-lg font-semibold text-white mb-2">Upload Data</h4>
+<p class="text-sm text-slate-400">Export a CSV from your existing VMS and drop it into VendAI.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center text-center w-full md:w-1/3 px-4">
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-indigo-500 flex items-center justify-center text-xl font-bold mb-6 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                            2
+                        </div>
+<h4 class="text-lg font-semibold text-white mb-2">AI Analyzes</h4>
+<p class="text-sm text-slate-400">Our engine processes historical trends, seasonality, and product velocity.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center text-center w-full md:w-1/3 px-4">
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-indigo-500 flex items-center justify-center text-xl font-bold mb-6 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                            3
+                        </div>
+<h4 class="text-lg font-semibold text-white mb-2">Get Predictions</h4>
+<p class="text-sm text-slate-400">View a dashboard showing exactly what to pack for tomorrow's route.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Banner -->
+<section class="py-24 px-6">
+<div class="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-900 p-12 text-center relative overflow-hidden border border-indigo-400/30 shadow-2xl">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+<div class="relative z-10">
+<h2 class="text-4xl font-bold text-white mb-6">Stop guessing. Start predicting.</h2>
+<p class="text-indigo-100 text-lg mb-10 max-w-2xl mx-auto">Join the campus operators who are eliminating stockouts and maximizing revenue with intelligent inventory forecasting.</p>
+<a class="inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-900 hover:bg-slate-50 rounded-lg font-bold text-lg transition-colors shadow-xl" href="#">
+                        Create Free Account
+                    </a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-slate-950 border-t border-white/5 flat no-shadows mt-auto">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
+<div class="flex flex-col gap-4">
+<a class="text-lg font-black text-white flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-indigo-500" data-icon="bolt">bolt</span>
+                    VendAI
+                </a>
+<p class="font-sans text-xs uppercase tracking-widest text-slate-500">© 2024 VendAI. Prediction for Every Machine.</p>
+<p class="font-sans text-xs text-slate-600">Built by Anish Singh</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-white text-sm font-semibold mb-2">Product</h4>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-indigo-400 transition-colors duration-200" href="#">Features</a>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-indigo-400 transition-colors duration-200" href="#">Security</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-white text-sm font-semibold mb-2">Company</h4>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-indigo-400 transition-colors duration-200" href="#">Privacy</a>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-indigo-400 transition-colors duration-200" href="#">Terms</a>
+</div>
+</div>
+</footer>
+</body></html>

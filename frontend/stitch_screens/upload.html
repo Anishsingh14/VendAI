@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Data - VendAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {},
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0F172A; color: #f8fafc; }
+        .ghost-border { border: 1px solid rgba(255, 255, 255, 0.06); }
+        .card-bg { background-color: #1E293B; }
+        .focus-glow:focus { box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); border-color: #6366F1; outline: none; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="flex flex-col h-full border-r border-white/5 bg-[#0F172A] fixed left-0 top-0 w-64 z-50">
+<div class="px-6 py-8 border-b border-white/5">
+<h1 class="text-[#6366F1] font-black text-2xl tracking-tight">VendAI</h1>
+<p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">AI Inventory Engine</p>
+</div>
+<div class="flex-1 py-6 px-3 space-y-1">
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:text-slate-100 hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-sans text-sm">Dashboard</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:text-slate-100 hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-sans text-sm">Inventory</span>
+</a>
+<a class="bg-[#6366F1]/10 text-[#6366F1] border-r-2 border-[#6366F1] px-4 py-3 flex items-center gap-3 font-semibold hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95 rounded-lg rounded-r-none" href="#">
+<span class="material-symbols-outlined" data-icon="cloud_upload">cloud_upload</span>
+<span class="font-sans text-sm">Upload Data</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:text-slate-100 hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-sans text-sm">Analytics</span>
+</a>
+<a class="text-slate-400 px-4 py-3 flex items-center gap-3 hover:text-slate-100 hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="online_prediction">online_prediction</span>
+<span class="font-sans text-sm">Forecasts</span>
+</a>
+</div>
+<div class="p-4 border-t border-white/5">
+<button class="w-full bg-[#6366F1] hover:bg-[#4f46e5] text-white py-2 px-4 rounded-lg font-medium transition-colors text-sm shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                New Prediction
+            </button>
+</div>
+<div class="pb-6 px-3 pt-2 space-y-1">
+<a class="text-slate-400 px-4 py-2 flex items-center gap-3 hover:text-slate-100 hover:bg-white/5 transition-all duration-200 cursor-pointer rounded-lg" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="contact_support">contact_support</span>
+<span class="font-sans text-xs">Support</span>
+</a>
+<a class="text-slate-400 px-4 py-2 flex items-center gap-3 hover:text-slate-100 hover:bg-white/5 transition-all duration-200 cursor-pointer rounded-lg" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span>
+<span class="font-sans text-xs">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-6 py-3 w-full sticky top-0 z-40 bg-[#0F172A] border-b border-white/5">
+<div class="flex items-center gap-4 flex-1">
+<span class="text-xl font-bold text-white tracking-tight hidden">VendAI</span>
+<div class="relative w-64 ml-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-1.5 text-sm text-slate-200 focus-glow placeholder-slate-500" placeholder="Search inventory..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:bg-white/5 transition-colors p-2 rounded-full active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:bg-white/5 transition-colors p-2 rounded-full active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-gradient-to-tr from-[#6366F1] to-purple-500 overflow-hidden cursor-pointer border border-white/10 ml-2">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close up headshot of a professional individual looking confidently at the camera. The lighting is soft and studio-quality, highlighting facial features naturally. The background is a blurred abstract dark slate tone fitting a premium software dashboard aesthetic. The mood is modern, sharp, and corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3dQrTEmMTohaUSpASfxNAn_Y5eJcQrvAOu_prFprKkyTTsrQRTEv9NwzVUZJ0uoaQWvwA4SCifhtvmef1XHohgVreFXdaEswhvQLqcihJTJpw0wb6yD0_wf8CA6iEfL1SBMtmImTGTHFGaXErZZ00bp7vBOx6rc7Numsp9qZ-skjg91Y7-t404NkDdIX9ISQU9HrAqRmu1r59QsTJp9H0ZiHMs9x7IB9BLarcqUQySgxDZ0xmiFac0xRzmaUFHwgm5pU_wu5IBizm"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 p-8 overflow-y-auto">
+<!-- Breadcrumb & Title -->
+<div class="mb-8">
+<nav aria-label="Breadcrumb" class="flex text-sm text-slate-400 mb-2 font-medium">
+<ol class="inline-flex items-center space-x-2">
+<li class="inline-flex items-center">
+<a class="hover:text-slate-200 transition-colors" href="#">Dashboard</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<span class="text-slate-200">Upload Data</span>
+</div>
+</li>
+</ol>
+</nav>
+<h2 class="text-3xl font-bold text-white tracking-tight">Upload Data</h2>
+<p class="text-slate-400 mt-2 text-sm">Import your machine telemetry and sales data to update inventory models.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Upload Flow -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Step 1: Select Machine -->
+<div class="card-bg rounded-xl p-6 ghost-border shadow-lg">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-semibold text-white flex items-center gap-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#6366F1]/20 text-[#6366F1] text-xs font-bold">1</span>
+                                Select Machine
+                            </h3>
+<a class="text-[#6366F1] hover:text-[#4f46e5] text-sm font-medium transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">add</span> Add New Machine
+                            </a>
+</div>
+<div class="relative">
+<select class="w-full bg-[#0F172A] border border-white/10 rounded-lg pl-4 pr-10 py-3 text-sm text-slate-200 focus-glow appearance-none cursor-pointer">
+<option>1st Floor Machine — Main Building</option>
+<option>Lobby Vending — West Wing</option>
+<option>Cafeteria Kiosk — HQ</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Step 2: File Upload Zone -->
+<div class="card-bg rounded-xl p-6 ghost-border shadow-lg">
+<h3 class="text-lg font-semibold text-white flex items-center gap-2 mb-4">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#6366F1]/20 text-[#6366F1] text-xs font-bold">2</span>
+                            Upload File
+                        </h3>
+<div class="h-[200px] border-2 border-dashed border-slate-600 rounded-xl flex flex-col items-center justify-center bg-[#1E293B] hover:bg-white/5 transition-colors cursor-pointer group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-[#6366F1]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-5xl text-slate-400 mb-3 group-hover:text-[#6366F1] transition-colors" data-icon="cloud_upload">cloud_upload</span>
+<p class="text-base text-slate-300 font-medium z-10">Drag and drop your CSV or Excel file here</p>
+<p class="text-sm text-slate-500 mt-1 z-10">
+<span class="text-[#6366F1] group-hover:underline">or browse files</span>
+</p>
+<div class="flex gap-3 mt-4 z-10">
+<span class="px-2.5 py-1 rounded bg-black/30 text-xs text-slate-400 border border-white/5 font-mono">.csv, .xlsx</span>
+<span class="px-2.5 py-1 rounded bg-black/30 text-xs text-slate-400 border border-white/5">Max file size: 10MB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Actions/Status (Placeholder for layout balance) -->
+<div class="space-y-6">
+<div class="card-bg rounded-xl p-6 ghost-border shadow-lg">
+<h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Upload Guidelines</h3>
+<ul class="space-y-3 text-sm text-slate-300">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#6366F1] text-[18px]">check_circle</span>
+                                 Ensure dates are formatted as YYYY-MM-DD.
+                             </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#6366F1] text-[18px]">check_circle</span>
+                                 Product names must match inventory exactly.
+                             </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#6366F1] text-[18px]">check_circle</span>
+                                 Remove empty rows before uploading.
+                             </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Bottom Actions -->
+<div class="mt-8 flex items-center gap-4 pt-6 border-t border-white/10">
+<button class="bg-[#6366F1] hover:bg-[#4f46e5] text-white px-6 py-2.5 rounded-lg font-medium transition-colors shadow-[0_0_15px_rgba(99,102,241,0.3)] flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">model_training</span>
+                    Upload &amp; Train Model
+                </button>
+<button class="px-6 py-2.5 rounded-lg font-medium text-slate-300 hover:text-white border border-white/10 hover:bg-white/5 transition-all">
+                    Cancel
+                </button>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,17 @@
+# VendAI .gitignore
+.env
+__pycache__/
+*.pyc
+*.pyo
+data/uploads/
+data/models/
+*.pkl
+.DS_Store
+venv/
+env/
+node_modules/
+*.egg-info/
+dist/
+build/
+.idea/
+.vscode/

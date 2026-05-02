@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VendAI — AI Smart Vending Machine</title>
+<meta name="description" content="AI-powered inventory prediction and alert system for campus vending machines">
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<!-- Google Fonts: Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<!-- Tailwind Config — VendAI Light Theme -->
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        canvas: "#F8FAFC",
+        surface: "#FFFFFF",
+        "surface-dim": "#F1F5F9",
+        primary: "#4F46E5",
+        "primary-hover": "#4338CA",
+        "primary-light": "#EEF2FF",
+        success: "#16A34A",
+        "success-light": "#F0FDF4",
+        warning: "#D97706",
+        "warning-light": "#FFFBEB",
+        danger: "#DC2626",
+        "danger-light": "#FEF2F2",
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      },
+      borderRadius: { DEFAULT: "8px" },
+      spacing: { "sidebar": "240px" },
+      maxWidth: { "container": "1440px" }
+    }
+  }
+}
+</script>
+
+<!-- App Utilities -->
+<link rel="stylesheet" href="static/css/main.css">
+
+<style>
+  body { background-color: #F8FAFC; color: #1E293B; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+</style>
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+<div id="app">
+  <div class="flex items-center justify-center h-screen bg-canvas">
+    <div class="text-center">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="material-symbols-outlined text-primary text-4xl">bolt</span>
+        <span class="text-2xl font-bold text-slate-900 tracking-tight">VendAI</span>
+      </div>
+      <div class="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+    </div>
+  </div>
+</div>
+
+<script src="static/js/api.js"></script>
+<script src="static/js/auth.js"></script>
+<script src="static/js/router.js"></script>
+<script src="static/js/dashboard.js"></script>
+<script src="static/js/machine.js"></script>
+<script src="static/js/calendar.js"></script>
+<script src="static/js/upload.js"></script>
+<script src="static/js/insights.js"></script>
+<script src="static/js/profile.js"></script>
+<script src="static/js/app.js"></script>
+</body>
+</html>
