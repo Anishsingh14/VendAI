@@ -168,18 +168,39 @@ const ProfilePage = {
       });
 
       // Reset Password
-      document.getElementById('btn-reset-password')?.addEventListener('click', async () => {
+      document.getElementById('btn-reset-password')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const originalHtml = btn.innerHTML;
         const email = user.email;
         if (!email) { showToast('No email found', 'error'); return; }
         try {
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span>Sending...';
+          btn.disabled = true;
           await API.forgotPassword(email);
           showToast('Password reset link sent to your email!', 'success');
-        } catch (e) { showToast(e.message, 'error'); }
+        } catch (err) { 
+          showToast(err.message, 'error'); 
+        } finally {
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+        }
       });
 
       // Test Alert
-      document.getElementById('btn-test-alert')?.addEventListener('click', async () => {
-        try { const r = await API.sendTestAlert(); showToast(r.message || 'Test alert sent!', 'success'); } catch (e) { showToast(e.message, 'error'); }
+      document.getElementById('btn-test-alert')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const originalHtml = btn.innerHTML;
+        try { 
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span>Sending...';
+          btn.disabled = true;
+          const r = await API.sendTestAlert(); 
+          showToast(r.message || 'Test alert sent!', 'success'); 
+        } catch (err) { 
+          showToast(err.message, 'error'); 
+        } finally {
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+        }
       });
 
       // Logout
