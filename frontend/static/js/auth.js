@@ -34,7 +34,6 @@ function sidebarHTML(activePage = 'dashboard') {
   const navItems = [
     { id: 'dashboard', icon: 'dashboard', label: 'Dashboard' },
     { id: 'machines', icon: 'precision_manufacturing', label: 'Machines' },
-    { id: 'upload', icon: 'upload_file', label: 'Upload Data' },
     { id: 'insights', icon: 'insights', label: 'Insights' },
     { id: 'alerts', icon: 'notifications', label: 'Alerts' },
     { id: 'profile', icon: 'settings', label: 'Settings' },

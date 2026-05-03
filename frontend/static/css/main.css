@@ -3,21 +3,14 @@
    Toast, modals, calendar, scrollbar, spinner, dropzone
    ═══════════════════════════════════════════════════════ */
 
-/* ── Dark Mode Filter ───────────────────────────────── */
-html.dark {
-  filter: invert(1) hue-rotate(180deg);
-  background-color: #0f172a;
-}
-html.dark img,
-html.dark video,
-html.dark svg,
-html.dark .material-symbols-outlined,
-html.dark canvas {
-  filter: invert(1) hue-rotate(180deg);
-}
+/* ═══════════════════════════════════════════════════════
+   VendAI — Utility CSS
+   Toast, modals, calendar, scrollbar, spinner, dropzone
+   ═══════════════════════════════════════════════════════ */
+
 /* Ensure smooth transitions for dark mode */
 html {
-  transition: filter 0.3s ease, background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ── Scrollbar ──────────────────────────────────────── */
@@ -35,8 +28,8 @@ html {
 .toast {
   padding: 12px 20px; border-radius: 10px;
   font-size: 14px; font-weight: 500;
-  background: #FFFFFF; color: #1E293B;
-  border: 1px solid #E2E8F0;
+  background: var(--c-surface, #FFFFFF); color: var(--c-slate-800, #1E293B);
+  border: 1px solid var(--c-slate-200, #E2E8F0);
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   animation: toast-in 0.3s ease;
   pointer-events: auto;
@@ -52,22 +45,22 @@ html {
 /* ── Modal System ───────────────────────────────────── */
 .modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.3); backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center;
   z-index: 9990; animation: fade-in 0.2s ease;
 }
 .modal {
-  background: #FFFFFF; border: 1px solid #E2E8F0;
+  background: var(--c-surface, #FFFFFF); border: 1px solid var(--c-slate-200, #E2E8F0);
   border-radius: 14px; padding: 28px; width: 90%; max-width: 480px;
   box-shadow: 0 24px 48px rgba(0,0,0,0.12);
   animation: modal-in 0.25s ease;
 }
-.modal h2 { font-size: 20px; font-weight: 600; color: #1E293B; margin-bottom: 20px; }
-.modal .form-label { display: block; font-size: 13px; font-weight: 500; color: #64748B; margin-bottom: 6px; }
+.modal h2 { font-size: 20px; font-weight: 600; color: var(--c-slate-900, #1E293B); margin-bottom: 20px; }
+.modal .form-label { display: block; font-size: 13px; font-weight: 500; color: var(--c-slate-500, #64748B); margin-bottom: 6px; }
 .modal .form-input {
   width: 100%; padding: 10px 14px; font-size: 14px;
-  background: #F8FAFC; border: 1px solid #E2E8F0;
-  border-radius: 8px; color: #1E293B; outline: none;
+  background: var(--c-canvas, #F8FAFC); border: 1px solid var(--c-slate-200, #E2E8F0);
+  border-radius: 8px; color: var(--c-slate-900, #1E293B); outline: none;
   transition: border-color 0.2s;
 }
 .modal .form-input:focus { border-color: #4F46E5; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
@@ -79,8 +72,8 @@ html {
 }
 .modal .btn-primary { background: #4F46E5; color: white; }
 .modal .btn-primary:hover { background: #4338CA; }
-.modal .btn-outline { background: transparent; color: #64748B; border: 1px solid #E2E8F0; }
-.modal .btn-outline:hover { border-color: #CBD5E1; color: #1E293B; }
+.modal .btn-outline { background: transparent; color: var(--c-slate-600, #64748B); border: 1px solid var(--c-slate-200, #E2E8F0); }
+.modal .btn-outline:hover { border-color: var(--c-slate-300, #CBD5E1); color: var(--c-slate-900, #1E293B); }
 
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes modal-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -92,14 +85,14 @@ html {
 }
 .cal-day-header {
   text-align: center; font-size: 11px; font-weight: 700;
-  color: #94A3B8; padding: 8px 0;
+  color: var(--c-slate-400, #94A3B8); padding: 8px 0;
   text-transform: uppercase; letter-spacing: 0.08em;
 }
 .cal-day {
   aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
   border-radius: 10px; font-size: 14px; font-weight: 600;
-  background: #F8FAFC; border: 1px solid #E2E8F0;
-  color: #475569; transition: all 0.15s;
+  background: var(--c-canvas, #F8FAFC); border: 1px solid var(--c-slate-200, #E2E8F0);
+  color: var(--c-slate-600, #475569); transition: all 0.15s;
   cursor: default;
 }
 .cal-day.empty { background: transparent; border: none; }
@@ -128,9 +121,9 @@ html {
   box-shadow: 0 2px 8px rgba(239,68,68,0.35);
 }
 .cal-day.status-black {
-  background: #1E293B !important;
-  color: #FFFFFF !important;
-  border-color: #0F172A !important;
+  background: var(--c-slate-900, #1E293B) !important;
+  color: var(--c-surface, #FFFFFF) !important;
+  border-color: var(--c-slate-900, #0F172A) !important;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(30,41,59,0.35);
 }
@@ -146,7 +139,7 @@ html {
 }
 .loading-spinner::after {
   content: ''; width: 32px; height: 32px;
-  border: 3px solid #E2E8F0;
+  border: 3px solid var(--c-slate-200, #E2E8F0);
   border-top-color: #4F46E5; border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -154,12 +147,12 @@ html {
 
 /* ── Drag and Drop Zone ────────────────────────────── */
 .dropzone-area {
-  border: 2px dashed #CBD5E1;
+  border: 2px dashed var(--c-slate-300, #CBD5E1);
   border-radius: 14px; padding: 48px; text-align: center;
-  background: #F8FAFC;
+  background: var(--c-canvas, #F8FAFC);
   transition: all 0.2s;
   cursor: pointer;
 }
 .dropzone-area:hover, .dropzone-area.drag-over {
-  border-color: #4F46E5; background: #EEF2FF;
+  border-color: #4F46E5; background: var(--c-primary-light, #EEF2FF);
 }
