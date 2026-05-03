@@ -124,9 +124,10 @@ def _generate_cold_start(machine_id, vendor_id, product_name,
     first_yellow = None
     first_red = None
 
-    for day_offset in range(1, 31):
+    for day_offset in range(0, 31):
         pred_date = today + timedelta(days=day_offset)
-        stock = max(0, stock - daily)
+        if day_offset > 0:
+            stock = max(0, stock - daily)
         pct = stock / capacity * 100
 
         if pct > 50:

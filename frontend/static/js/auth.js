@@ -53,10 +53,18 @@ function sidebarHTML(activePage = 'dashboard') {
   }).join('');
 
   return `
-    <nav class="fixed left-0 top-0 h-full w-[240px] border-r border-slate-200 bg-white flex flex-col overflow-y-auto z-50">
-      <div class="p-6 flex items-center gap-2.5">
-        <span class="material-symbols-outlined text-primary text-xl">bolt</span>
-        <span class="text-xl font-bold tracking-tight text-slate-900">VendAI</span>
+    <!-- Mobile Sidebar Backdrop -->
+    <div class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden" id="mobile-sidebar-backdrop"></div>
+    
+    <nav id="app-sidebar" class="fixed left-0 top-0 h-full w-[240px] border-r border-slate-200 bg-white flex flex-col overflow-y-auto z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+      <div class="p-6 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-primary text-xl">bolt</span>
+          <span class="text-xl font-bold tracking-tight text-slate-900">VendAI</span>
+        </div>
+        <button class="md:hidden text-slate-400 hover:text-slate-700" id="close-sidebar">
+          <span class="material-symbols-outlined">close</span>
+        </button>
       </div>
       <div class="px-5 pb-3">
         <span class="text-[10px] uppercase tracking-[0.15em] text-slate-400 font-semibold">Vending Intelligence</span>
@@ -66,7 +74,7 @@ function sidebarHTML(activePage = 'dashboard') {
       </div>
       <div class="mt-auto px-4 py-4 border-t border-slate-100">
         <div class="flex items-center gap-3 cursor-pointer rounded-lg hover:bg-slate-50 p-2 transition-colors" data-nav="profile">
-          <div class="w-8 h-8 rounded-full bg-primary-light border border-indigo-200 flex items-center justify-center text-xs font-semibold text-primary">${initials}</div>
+          <div class="w-8 h-8 rounded-full bg-primary-light border border-indigo-200 flex items-center justify-center text-xs font-semibold text-primary shrink-0">${initials}</div>
           <div class="flex-1 min-w-0">
             <div class="text-sm font-medium text-slate-800 truncate">${user.name || 'Vendor'}</div>
             <div class="text-[11px] text-slate-400 truncate">${user.email || ''}</div>
@@ -78,7 +86,28 @@ function sidebarHTML(activePage = 'dashboard') {
 
 function bindSidebarNav() {
   document.querySelectorAll('[data-nav]').forEach(el => {
-    el.addEventListener('click', () => Router.navigate(el.dataset.nav));
+    el.addEventListener('click', () => {
+      Router.navigate(el.dataset.nav);
+      // Close sidebar on mobile after navigation
+      document.getElementById('app-sidebar')?.classList.add('-translate-x-full');
+      document.getElementById('mobile-sidebar-backdrop')?.classList.add('hidden');
+    });
+  });
+  
+  // Mobile sidebar toggle logic
+  document.getElementById('open-sidebar')?.addEventListener('click', () => {
+    document.getElementById('app-sidebar')?.classList.remove('-translate-x-full');
+    document.getElementById('mobile-sidebar-backdrop')?.classList.remove('hidden');
+  });
+  
+  document.getElementById('close-sidebar')?.addEventListener('click', () => {
+    document.getElementById('app-sidebar')?.classList.add('-translate-x-full');
+    document.getElementById('mobile-sidebar-backdrop')?.classList.add('hidden');
+  });
+  
+  document.getElementById('mobile-sidebar-backdrop')?.addEventListener('click', () => {
+    document.getElementById('app-sidebar')?.classList.add('-translate-x-full');
+    document.getElementById('mobile-sidebar-backdrop')?.classList.add('hidden');
   });
 }
 
@@ -93,9 +122,14 @@ function pageShell(activePage, contentHTML) {
   return `
     <div class="flex h-screen bg-canvas overflow-hidden">
       ${sidebarHTML(activePage)}
-      <div class="flex-1 flex flex-col ml-[240px] h-screen overflow-hidden">
-        <header class="sticky top-0 h-14 border-b border-slate-200 bg-white/80 backdrop-blur-md flex justify-between items-center px-6 z-40 shrink-0">
-          <span class="text-base font-semibold text-slate-800">${pageTitle}</span>
+      <div class="flex-1 flex flex-col md:ml-[240px] w-full h-screen overflow-hidden">
+        <header class="sticky top-0 h-14 border-b border-slate-200 bg-white/80 backdrop-blur-md flex justify-between items-center px-4 md:px-6 z-30 shrink-0">
+          <div class="flex items-center gap-3">
+            <button class="md:hidden text-slate-500 hover:text-slate-800 p-1 rounded-md" id="open-sidebar">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+            <span class="text-base font-semibold text-slate-800">${pageTitle}</span>
+          </div>
           <div class="flex items-center gap-3">
             <button class="text-slate-400 hover:text-slate-700 transition-colors relative p-2 rounded-lg hover:bg-slate-50" data-nav="alerts">
               <span class="material-symbols-outlined text-[20px]">notifications</span>

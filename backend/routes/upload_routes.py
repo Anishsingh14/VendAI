@@ -184,9 +184,10 @@ def process_upload():
         from utils.alert_engine import reset_alert_counter
         reset_alert_counter(machine_id)
 
-        # Trigger model training
+        # Trigger model training in the background to prevent Render 30s timeout
         try:
-            train_models_for_machine(machine_id, user_id)
+            import threading
+            threading.Thread(target=train_models_for_machine, args=(machine_id, user_id), daemon=True).start()
         except Exception as train_err:
             repair_report['training_error'] = str(train_err)
 

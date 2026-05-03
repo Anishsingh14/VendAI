@@ -37,10 +37,16 @@ def _send_email(to_email: str, subject: str, html_body: str, plain_body: str = '
     msg.attach(MIMEText(html_body, 'html'))
 
     try:
+        smtp_host = os.getenv('SMTP_HOST', 'smtp-relay.brevo.com')
+        smtp_port = int(os.getenv('SMTP_PORT', '2525'))
+        smtp_user = os.getenv('SMTP_USER') or GMAIL_USER
+        smtp_password = os.getenv('SMTP_PASSWORD') or GMAIL_APP_PASSWORD
+
         # Added a 3-second timeout to prevent server crashes if Render blocks the port
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=3) as server:
-            server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
-            server.sendmail(GMAIL_USER, to_email, msg.as_string())
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=3) as server:
+            server.starttls()
+            server.login(smtp_user, smtp_password)
+            server.sendmail(smtp_user, to_email, msg.as_string())
     except Exception as e:
         print(f"[EmailSender] Failed to send email to {to_email}. Error: {e}")
         # We catch the exception so that if email fails (e.g. Render port block),
