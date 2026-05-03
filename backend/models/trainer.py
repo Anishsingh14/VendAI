@@ -73,49 +73,64 @@ def train_models_for_machine(machine_id: str, vendor_id: str):
     products = df['product_name'].dropna().unique().tolist()
 
     for product_name in products:
-        product_df = df[df['product_name'] == product_name].copy()
+        train_model_for_product(machine_id, vendor_id, product_name, df)
 
-        if len(product_df) < 7:
-            # Cold start: use moving average fallback
-            _store_cold_start_prediction(machine_id, vendor_id, product_name, product_df)
-            continue
+def train_model_for_product(machine_id: str, vendor_id: str, product_name: str, df: pd.DataFrame = None):
+    """Train RF model for a specific product."""
+    if df is None:
+        raw = supabase_admin.table('inventory_data') \
+            .select('*') \
+            .eq('machine_id', machine_id) \
+            .eq('product_name', product_name) \
+            .order('date') \
+            .execute()
+        if not raw.data:
+            return
+        df = pd.DataFrame(raw.data)
 
-        try:
-            product_df = engineer_features(product_df)
-            X = product_df[FEATURE_COLS]
-            # Train on units_consumed (daily consumption), NOT stock_remaining
-            y = product_df['units_consumed'].clip(lower=0)
+    product_df = df[df['product_name'] == product_name].copy()
 
-            model = RandomForestRegressor(
-                n_estimators=100,
-                max_depth=10,
-                min_samples_leaf=3,
-                random_state=42
-            )
-            model.fit(X, y)
+    if len(product_df) < 7:
+        # Cold start: use moving average fallback
+        _store_cold_start_prediction(machine_id, vendor_id, product_name, product_df)
+        return
 
-            # Cross-validation score
-            if len(product_df) >= 14:
-                scores = cross_val_score(model, X, y, cv=3, scoring='r2')
-                confidence = max(0.0, float(np.mean(scores)))
-            else:
-                confidence = 0.5
+    try:
+        product_df = engineer_features(product_df)
+        X = product_df[FEATURE_COLS]
+        # Train on units_consumed (daily consumption), NOT stock_remaining
+        y = product_df['units_consumed'].clip(lower=0)
 
-            # Save model to disk
-            model_key = f"{machine_id}_{product_name.replace(' ', '_')}.pkl"
-            model_path = os.path.join(MODEL_DIR, model_key)
-            with open(model_path, 'wb') as f:
-                pickle.dump(model, f)
+        model = RandomForestRegressor(
+            n_estimators=100,
+            max_depth=10,
+            min_samples_leaf=3,
+            random_state=42
+        )
+        model.fit(X, y)
 
-            # Generate 30-day predictions
-            predictions = _predict_30_days(model, product_df, product_name)
+        # Cross-validation score
+        if len(product_df) >= 14:
+            scores = cross_val_score(model, X, y, cv=3, scoring='r2')
+            confidence = max(0.0, float(np.mean(scores)))
+        else:
+            confidence = 0.5
 
-            # Store in Supabase
-            _store_predictions(machine_id, vendor_id, product_name, predictions, confidence, product_df)
+        # Save model to disk
+        model_key = f"{machine_id}_{product_name.replace(' ', '_')}.pkl"
+        model_path = os.path.join(MODEL_DIR, model_key)
+        with open(model_path, 'wb') as f:
+            pickle.dump(model, f)
 
-        except Exception as e:
-            print(f"[Trainer] Error training model for {product_name}: {e}")
-            _store_cold_start_prediction(machine_id, vendor_id, product_name, product_df)
+        # Generate 30-day predictions
+        predictions = _predict_30_days(model, product_df, product_name)
+
+        # Store in Supabase
+        _store_predictions(machine_id, vendor_id, product_name, predictions, confidence, product_df)
+
+    except Exception as e:
+        print(f"[Trainer] Error training model for {product_name}: {e}")
+        _store_cold_start_prediction(machine_id, vendor_id, product_name, product_df)
 
 
 def _predict_30_days(model: RandomForestRegressor, df: pd.DataFrame, product_name: str) -> list:

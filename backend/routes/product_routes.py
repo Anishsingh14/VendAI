@@ -286,12 +286,11 @@ def restock_product():
 
         # Re-trigger training so predictions update with new stock level
         try:
-            from models.trainer import train_models_for_machine
+            from models.trainer import train_model_for_product
             from utils.alert_engine import reset_alert_counter
-            import threading
             reset_alert_counter(machine_id)
-            # Run in background to prevent slow restock responses
-            threading.Thread(target=train_models_for_machine, args=(machine_id, user_id), daemon=True).start()
+            # Run synchronously for this specific product to ensure UI updates immediately
+            train_model_for_product(machine_id, user_id, product_name)
         except Exception as train_err:
             print(f"[Restock] Retraining failed to start: {train_err}")
 
