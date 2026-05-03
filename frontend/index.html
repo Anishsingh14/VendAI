@@ -21,21 +21,35 @@
 <!-- Tailwind Config — VendAI Light Theme -->
 <script>
 tailwind.config = {
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        canvas: "#F8FAFC",
-        surface: "#FFFFFF",
-        "surface-dim": "#F1F5F9",
+        white: 'var(--c-white, #ffffff)',
+        canvas: 'var(--c-canvas, #F8FAFC)',
+        surface: 'var(--c-surface, #FFFFFF)',
+        "surface-dim": 'var(--c-surface-dim, #F1F5F9)',
         primary: "#4F46E5",
         "primary-hover": "#4338CA",
-        "primary-light": "#EEF2FF",
+        "primary-light": 'var(--c-primary-light, #EEF2FF)',
         success: "#16A34A",
-        "success-light": "#F0FDF4",
+        "success-light": 'var(--c-success-light, #F0FDF4)',
         warning: "#D97706",
-        "warning-light": "#FFFBEB",
+        "warning-light": 'var(--c-warning-light, #FFFBEB)',
         danger: "#DC2626",
-        "danger-light": "#FEF2F2",
+        "danger-light": 'var(--c-danger-light, #FEF2F2)',
+        slate: {
+          50: 'var(--c-slate-50, #f8fafc)',
+          100: 'var(--c-slate-100, #f1f5f9)',
+          200: 'var(--c-slate-200, #e2e8f0)',
+          300: 'var(--c-slate-300, #cbd5e1)',
+          400: 'var(--c-slate-400, #94a3b8)',
+          500: 'var(--c-slate-500, #64748b)',
+          600: 'var(--c-slate-600, #475569)',
+          700: 'var(--c-slate-700, #334155)',
+          800: 'var(--c-slate-800, #1e293b)',
+          900: 'var(--c-slate-900, #0f172a)',
+        }
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -53,11 +67,43 @@ tailwind.config = {
 <link rel="stylesheet" href="static/css/main.css">
 
 <style>
-  body { background-color: #F8FAFC; color: #1E293B; }
+  .dark {
+    --c-white: #0f172a;
+    --c-canvas: #020617;
+    --c-surface: #0f172a;
+    --c-surface-dim: #1e293b;
+    --c-primary-light: #1e1b4b;
+    --c-success-light: #052e16;
+    --c-warning-light: #451a03;
+    --c-danger-light: #450a0a;
+    --c-slate-50: #1e293b;
+    --c-slate-100: #334155;
+    --c-slate-200: #475569;
+    --c-slate-300: #64748b;
+    --c-slate-400: #94a3b8;
+    --c-slate-500: #cbd5e1;
+    --c-slate-600: #e2e8f0;
+    --c-slate-700: #f1f5f9;
+    --c-slate-800: #f8fafc;
+    --c-slate-900: #ffffff;
+  }
+  body { 
+    background-color: var(--c-canvas, #F8FAFC); 
+    color: var(--c-slate-800, #1E293B); 
+    transition: background-color 0.3s, color 0.3s;
+  }
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 </style>
+<script>
+  // Initial theme check to prevent flash of wrong theme
+  if (localStorage.getItem('vendai_theme') === 'dark' || (!('vendai_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
 </head>
 <body class="font-sans antialiased min-h-screen">
 

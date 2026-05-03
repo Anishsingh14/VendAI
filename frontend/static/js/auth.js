@@ -109,6 +109,22 @@ function bindSidebarNav() {
     document.getElementById('app-sidebar')?.classList.add('-translate-x-full');
     document.getElementById('mobile-sidebar-backdrop')?.classList.add('hidden');
   });
+
+  // Theme Toggle logic
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  
+  // Set initial icon
+  if (themeIcon) {
+    themeIcon.textContent = document.documentElement.classList.contains('dark') ? 'dark_mode' : 'light_mode';
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    localStorage.setItem('vendai_theme', isDark ? 'dark' : 'light');
+    if (themeIcon) themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+  });
 }
 
 function pageShell(activePage, contentHTML) {
@@ -130,7 +146,10 @@ function pageShell(activePage, contentHTML) {
             </button>
             <span class="text-base font-semibold text-slate-800">${pageTitle}</span>
           </div>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1 sm:gap-3">
+            <button id="theme-toggle" class="text-slate-400 hover:text-slate-700 transition-colors relative p-2 rounded-lg hover:bg-slate-50" title="Toggle Theme">
+              <span class="material-symbols-outlined text-[20px]" id="theme-icon">light_mode</span>
+            </button>
             <button class="text-slate-400 hover:text-slate-700 transition-colors relative p-2 rounded-lg hover:bg-slate-50" data-nav="alerts">
               <span class="material-symbols-outlined text-[20px]">notifications</span>
             </button>
