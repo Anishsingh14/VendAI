@@ -288,10 +288,12 @@ def restock_product():
         try:
             from models.trainer import train_models_for_machine
             from utils.alert_engine import reset_alert_counter
+            import threading
             reset_alert_counter(machine_id)
-            train_models_for_machine(machine_id, user_id)
+            # Run in background to prevent slow restock responses
+            threading.Thread(target=train_models_for_machine, args=(machine_id, user_id), daemon=True).start()
         except Exception as train_err:
-            print(f"[Restock] Retraining failed: {train_err}")
+            print(f"[Restock] Retraining failed to start: {train_err}")
 
         return jsonify({
             'message': f'Restocked {product_name} with {restock_qty} units',
