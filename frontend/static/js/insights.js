@@ -6,7 +6,7 @@ const InsightsPage = {
   render(state) {
     this._machineId = state?.machineId || null;
     return pageShell('insights', `
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
         <div><h1 class="text-2xl font-semibold text-slate-900">Insights</h1><p class="text-slate-500 text-sm mt-1">Sales intelligence derived from your inventory data</p></div>
       </div>
       <div id="machine-selector" class="mb-6"></div>

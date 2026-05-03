@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        white: 'var(--c-white, #ffffff)',
+        canvas: 'var(--c-canvas, #F8FAFC)',
+        slate: {
+          50: 'var(--c-slate-50, #f8fafc)',
+          100: 'var(--c-slate-100, #f1f5f9)',
+          200: 'var(--c-slate-200, #e2e8f0)',
+          300: 'var(--c-slate-300, #cbd5e1)',
+          400: 'var(--c-slate-400, #94a3b8)',
+          500: 'var(--c-slate-500, #64748b)',
+          600: 'var(--c-slate-600, #475569)',
+          700: 'var(--c-slate-700, #334155)',
+          800: 'var(--c-slate-800, #1e293b)',
+          900: 'var(--c-slate-900, #0f172a)',
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+.dark {
+  --c-white: #0f172a;
+  --c-canvas: #020617;
+  --c-slate-50: #1e293b;
+  --c-slate-100: #334155;
+  --c-slate-200: #475569;
+  --c-slate-300: #64748b;
+  --c-slate-400: #94a3b8;
+  --c-slate-500: #cbd5e1;
+  --c-slate-600: #e2e8f0;
+  --c-slate-700: #f1f5f9;
+  --c-slate-800: #f8fafc;
+  --c-slate-900: #ffffff;
+}
+</style>
+</head>
+<body class="bg-canvas dark">
+  <div class="bg-white border border-slate-200 text-slate-900 p-4 m-4 rounded-lg">
+    <h1 class="text-xl font-bold">Hello World</h1>
+    <p class="text-slate-500">This is a test</p>
+    <div class="bg-slate-50 p-2 mt-2 border border-slate-100">Inner box</div>
+  </div>
+</body>
+</html>

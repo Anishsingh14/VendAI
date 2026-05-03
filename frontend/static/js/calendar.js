@@ -7,11 +7,13 @@ const CalendarPage = {
         <div class="flex items-center gap-2 text-sm text-slate-400 mb-3">
           <a class="hover:text-slate-700 cursor-pointer transition-colors" data-nav="dashboard">Dashboard</a>
           <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-          <a class="hover:text-slate-700 cursor-pointer transition-colors" onclick="Router.navigate('machine-detail',{id:'${state.machineId}',name:'${state.machineName}'})"> ${state.machineName || 'Machine'}</a>
+          <button class="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors" onclick="Router.navigate('machine-detail', {id:'${state.machineId}', name:'${state.machineName ? state.machineName.replace(/'/g, "\\'") : ''}'})">
+          <span class="text-sm font-medium">${state.machineName || 'Machine'}</span>
+          </button>
           <span class="material-symbols-outlined text-[14px]">chevron_right</span>
           <span class="text-slate-700">${state.productName || 'Product'}</span>
         </div>
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-3">
               <h1 class="text-2xl font-semibold text-slate-900">${state.productName}</h1>
@@ -19,7 +21,7 @@ const CalendarPage = {
             </div>
             <p class="text-slate-500 text-sm mt-1">${state.machineName} · Stock prediction calendar</p>
           </div>
-          <button class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium py-2.5 px-5 rounded-lg transition-colors flex items-center gap-2 shadow-sm" id="restock-btn">
+          <button class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium py-2.5 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm" id="restock-btn">
             <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>Restock
           </button>
         </div>

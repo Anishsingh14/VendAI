@@ -2,24 +2,33 @@
 VendAI — Predictor
 Fetches stored predictions from Supabase for calendar view display
 """
-
 import calendar
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime, timezone
 from supabase_client import supabase_admin
-
 
 def get_product_calendar(machine_id: str, product_name: str, vendor_id: str) -> dict:
     """
     Returns a full calendar view for the current month with stock status per day.
     Also returns confidence badge info per day range.
     """
-    today = date.today()
+    # Use IST offset to correctly determine "today" for India timezone (+05:30)
+    ist_tz = timezone(timedelta(hours=5, minutes=30))
+    today = datetime.now(ist_tz).date()
     year = today.year
     month = today.month
     _, days_in_month = calendar.monthrange(year, month)
 
     month_start = date(year, month, 1)
     month_end = date(year, month, days_in_month)
+
+    # Fetch product info first
+    product_res = supabase_admin.table('products') \
+        .select('stock_remaining, is_priority, data_confidence, model_confidence') \
+        .eq('machine_id', machine_id) \
+        .eq('product_name', product_name) \
+        .single().execute()
+
+    product_meta = product_res.data or {}
 
     # Fetch predictions for this month
     res = supabase_admin.table('predictions') \
@@ -50,6 +59,21 @@ def get_product_calendar(machine_id: str, product_name: str, vendor_id: str) -> 
             status = 'historical'
             confidence = 'actual'
             stock_pct = None
+        elif d == today:
+            # Use real-time current stock for today
+            current_stock = float(product_meta.get('stock_remaining', 0))
+            max_capacity = 100.0 # Default max capacity since we don't store it explicitly per product
+            pct = current_stock / max_capacity * 100
+            if pct > 50:
+                status = 'green'
+            elif pct > 20:
+                status = 'yellow'
+            elif pct > 0:
+                status = 'red'
+            else:
+                status = 'black'
+            confidence = 'actual'
+            stock_pct = pct
         else:
             status = 'unknown'
             confidence = 'none'
@@ -80,15 +104,6 @@ def get_product_calendar(machine_id: str, product_name: str, vendor_id: str) -> 
     statuses = [d['status'] for d in calendar_days if not d['is_past']]
     first_yellow = next((d['date'] for d in calendar_days if d['status'] == 'yellow' and not d['is_past']), None)
     first_red = next((d['date'] for d in calendar_days if d['status'] in ('red', 'black') and not d['is_past']), None)
-
-    # Fetch product info
-    product_res = supabase_admin.table('products') \
-        .select('is_priority, data_confidence, model_confidence') \
-        .eq('machine_id', machine_id) \
-        .eq('product_name', product_name) \
-        .single().execute()
-
-    product_meta = product_res.data or {}
 
     return {
         'machine_id': machine_id,

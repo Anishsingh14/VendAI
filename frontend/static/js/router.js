@@ -33,9 +33,15 @@ const Router = {
       case 'signup':    app.innerHTML = SignupPage.render(); SignupPage.bind(); break;
       case 'dashboard': app.innerHTML = DashboardPage.render(); DashboardPage.load(); break;
       case 'machines':  app.innerHTML = MachinePage.render(); MachinePage.load(); break;
-      case 'machine-detail': app.innerHTML = MachineDetailPage.render(this.state); MachineDetailPage.load(this.state); break;
-      case 'calendar':  app.innerHTML = CalendarPage.render(this.state); CalendarPage.load(this.state); break;
-      case 'upload':    app.innerHTML = UploadPage.render(this.state); UploadPage.bind(this.state); break;
+      case 'machine-detail': 
+        if (!this.state || !this.state.id || this.state.id === 'undefined') { this.navigate('machines', {}, true); return; }
+        app.innerHTML = MachineDetailPage.render(this.state); MachineDetailPage.load(this.state); break;
+      case 'calendar':  
+        if (!this.state || !this.state.machineId || this.state.machineId === 'undefined') { this.navigate('dashboard', {}, true); return; }
+        app.innerHTML = CalendarPage.render(this.state); CalendarPage.load(this.state); break;
+      case 'upload':    
+        if (!this.state || !this.state.machineId || this.state.machineId === 'undefined') { this.navigate('machines', {}, true); return; }
+        app.innerHTML = UploadPage.render(this.state); UploadPage.bind(this.state); break;
       case 'insights':  app.innerHTML = InsightsPage.render(); InsightsPage.load(); break;
       case 'alerts':    app.innerHTML = AlertsPage.render(); AlertsPage.load(); break;
       case 'profile':   app.innerHTML = ProfilePage.render(); ProfilePage.load(); break;

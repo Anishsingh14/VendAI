@@ -3,7 +3,7 @@
 const AlertsPage = {
   render() {
     return pageShell('alerts', `
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
         <div><h1 class="text-2xl font-semibold text-slate-900">Alerts</h1><p class="text-slate-500 text-sm mt-1">Recent stock alerts for all machines</p></div>
       </div>
       <div id="alerts-list"><div class="loading-spinner"></div></div>
@@ -22,8 +22,8 @@ const AlertsPage = {
       }
       const iconMap = { WARNING: 'warning', CRITICAL: 'error', URGENT: 'crisis_alert' };
       const colorMap = { WARNING: ['bg-amber-100 text-amber-700 border-amber-200', 'text-amber-600'], CRITICAL: ['bg-red-100 text-red-700 border-red-200', 'text-red-600'], URGENT: ['bg-red-100 text-red-700 border-red-200', 'text-red-600'] };
-      el.innerHTML = `<div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
-        <table class="w-full"><thead><tr class="border-b border-slate-100 bg-slate-50">
+      el.innerHTML = `<div class="bg-white border border-slate-200 rounded-xl overflow-x-auto w-full">
+        <table class="w-full min-w-[600px]"><thead><tr class="border-b border-slate-100 bg-slate-50">
           <th class="text-left text-[11px] uppercase tracking-wider text-slate-500 font-medium px-5 py-3">Product</th>
           <th class="text-left text-[11px] uppercase tracking-wider text-slate-500 font-medium px-5 py-3">Machine</th>
           <th class="text-left text-[11px] uppercase tracking-wider text-slate-500 font-medium px-5 py-3">Level</th>

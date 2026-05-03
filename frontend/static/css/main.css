@@ -1,7 +1,24 @@
 /* ═══════════════════════════════════════════════════════
-   VendAI — Utility CSS (Light Theme)
+   VendAI — Utility CSS
    Toast, modals, calendar, scrollbar, spinner, dropzone
    ═══════════════════════════════════════════════════════ */
+
+/* ── Dark Mode Filter ───────────────────────────────── */
+html.dark {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #0f172a;
+}
+html.dark img,
+html.dark video,
+html.dark svg,
+html.dark .material-symbols-outlined,
+html.dark canvas {
+  filter: invert(1) hue-rotate(180deg);
+}
+/* Ensure smooth transitions for dark mode */
+html {
+  transition: filter 0.3s ease, background-color 0.3s ease;
+}
 
 /* ── Scrollbar ──────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }

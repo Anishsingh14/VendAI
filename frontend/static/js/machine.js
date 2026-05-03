@@ -11,15 +11,33 @@ const MachinePage = {
     `);
   },
   async load() {
+    // Bind add machine button
+    document.getElementById('add-machine-top')?.addEventListener('click', () => {
+      showModal(`<h2>Add New Machine</h2>
+        <div class="form-group"><label class="form-label">Machine Name</label><input class="form-input" id="m-name" placeholder="e.g. Main Block Vending"></div>
+        <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="m-location" placeholder="e.g. Building A"></div>
+        <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="m-save">Add Machine</button></div>`);
+      document.getElementById('m-save')?.addEventListener('click', async () => {
+        const name = document.getElementById('m-name').value.trim();
+        const location = document.getElementById('m-location').value.trim();
+        if (!name || !location) { showToast('Both fields required', 'error'); return; }
+        try { await API.addMachine({ name, location }); closeModal(); showToast('Machine added!', 'success'); Router.navigate('machines'); }
+        catch (e) { showToast(e.message, 'error'); }
+      });
+    });
+
     try {
       const machines = await API.getMachines();
       const el = document.getElementById('machine-grid');
       if (!machines.length) {
         el.innerHTML = `<div class="bg-white border border-slate-200 rounded-xl p-12 text-center"><span class="material-symbols-outlined text-slate-300 text-5xl mb-3">precision_manufacturing</span><div class="text-slate-800 font-semibold mb-1">No machines registered</div><div class="text-slate-400 text-sm">Get started by adding your first vending machine.</div></div>`;
       } else {
-        el.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">${machines.map(m => `
+        el.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">${machines.map(m => {
+          const safeName = m.name.replace(/'/g, "\\'");
+          const safeLoc = m.location.replace(/'/g, "\\'");
+          return `
           <div class="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg hover:shadow-slate-100 hover:border-slate-300 transition-all group relative">
-            <div class="flex items-center gap-4 mb-4 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'${m.id}',name:'${m.name}',location:'${m.location}'})">
+            <div class="flex items-center gap-4 mb-4 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'${m.id}',name:'${safeName}',location:'${safeLoc}'})">
               <div class="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center"><span class="material-symbols-outlined text-primary">precision_manufacturing</span></div>
               <div>
                 <div class="text-base font-semibold text-slate-800">${m.name}</div>
@@ -29,13 +47,14 @@ const MachinePage = {
             <div class="flex items-center justify-between text-xs text-slate-400">
               <span>ID: ${m.id.slice(0,8)}…</span>
               <div class="flex items-center gap-2">
-                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-500 p-1 rounded-md hover:bg-red-50" title="Delete Machine" data-delete-machine="${m.id}" data-machine-name="${m.name}">
+                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-500 p-1 rounded-md hover:bg-red-50" title="Delete Machine" data-delete-machine="${m.id}" data-machine-name="${safeName}">
                   <span class="material-symbols-outlined text-[18px]">delete</span>
                 </button>
-                <span class="material-symbols-outlined text-[18px] text-slate-300 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'${m.id}',name:'${m.name}',location:'${m.location}'})">chevron_right</span>
+                <span class="material-symbols-outlined text-[18px] text-slate-300 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'${m.id}',name:'${safeName}',location:'${safeLoc}'})">chevron_right</span>
               </div>
             </div>
-          </div>`).join('')}</div>`;
+          </div>`;
+        }).join('')}</div>`;
 
         // Bind delete buttons
         document.querySelectorAll('[data-delete-machine]').forEach(btn => {
@@ -62,21 +81,6 @@ const MachinePage = {
           });
         });
       }
-
-      // Bind add machine button
-      document.getElementById('add-machine-top')?.addEventListener('click', () => {
-        showModal(`<h2>Add New Machine</h2>
-          <div class="form-group"><label class="form-label">Machine Name</label><input class="form-input" id="m-name" placeholder="e.g. Main Block Vending"></div>
-          <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="m-location" placeholder="e.g. Building A"></div>
-          <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="m-save">Add Machine</button></div>`);
-        document.getElementById('m-save')?.addEventListener('click', async () => {
-          const name = document.getElementById('m-name').value.trim();
-          const location = document.getElementById('m-location').value.trim();
-          if (!name || !location) { showToast('Both fields required', 'error'); return; }
-          try { await API.addMachine({ name, location }); closeModal(); showToast('Machine added!', 'success'); Router.navigate('machines'); }
-          catch (e) { showToast(e.message, 'error'); }
-        });
-      });
     } catch (e) { showToast(e.message, 'error'); }
   }
 };
@@ -99,7 +103,7 @@ const MachineDetailPage = {
             <button class="w-full sm:w-auto bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 text-slate-700 text-sm font-medium py-2.5 px-5 rounded-lg transition-colors flex items-center justify-center gap-2" id="add-product-btn">
               <span class="material-symbols-outlined text-[16px] text-emerald-600">add_circle</span>Add Product
             </button>
-            <button class="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white text-sm font-medium py-2.5 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm" onclick="Router.navigate('upload',{machineId:'${state.id}',machineName:'${state.name}'})">
+            <button class="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white text-sm font-medium py-2.5 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm" onclick="Router.navigate('upload',{machineId:'${state.id}',machineName:'${state.name ? state.name.replace(/'/g, "\\'") : ''}'})">
               <span class="material-symbols-outlined text-[16px]">upload_file</span>Upload CSV
             </button>
           </div>
@@ -109,6 +113,7 @@ const MachineDetailPage = {
     `);
   },
   async load(state) {
+    if (!state || !state.id) return;
     try {
       const products = await API.getProducts(state.id);
       const el = document.getElementById('products-table');
@@ -136,8 +141,10 @@ const MachineDetailPage = {
           const [confCls, confLabel] = confMap[dc] || ['bg-slate-100 text-slate-500 border-slate-200', pred ? 'Low' : 'New'];
 
           const statusLabel = p.status === 'inactive' ? '<span class="inline-flex px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-400 border border-slate-200 ml-2">INACTIVE</span>' : '';
+          const safeProdName = p.product_name.replace(/'/g, "\\'");
+          const safeStateName = (state.name || '').replace(/'/g, "\\'");
           return `<tr class="border-b border-slate-50 hover:bg-slate-50 transition-colors ${p.status === 'inactive' ? 'opacity-50' : ''}">
-            <td class="px-5 py-4 text-sm font-medium text-slate-800 cursor-pointer" onclick="Router.navigate('calendar',{machineId:'${state.id}',machineName:'${state.name}',productName:'${p.product_name}'})">${p.product_name}${statusLabel}</td>
+            <td class="px-5 py-4 text-sm font-medium text-slate-800 cursor-pointer" onclick="Router.navigate('calendar',{machineId:'${state.id}',machineName:'${safeStateName}',productName:'${safeProdName}'})">${p.product_name}${statusLabel}</td>
             <td class="px-5 py-4 text-sm font-mono text-slate-600">${stockDisplay}</td>
             <td class="px-5 py-4">${priorityBadge}</td>
             <td class="px-5 py-4"><span class="inline-flex px-2 py-0.5 rounded text-[10px] font-semibold ${confCls} border">${confLabel}</span></td>
@@ -155,7 +162,7 @@ const MachineDetailPage = {
                     <span class="material-symbols-outlined text-[16px]">undo</span>
                   </button>
                 `}
-                <span class="material-symbols-outlined text-[18px] text-slate-300 cursor-pointer ml-1" onclick="Router.navigate('calendar',{machineId:'${state.id}',machineName:'${state.name}',productName:'${p.product_name}'})">chevron_right</span>
+                <span class="material-symbols-outlined text-[18px] text-slate-300 cursor-pointer ml-1" onclick="Router.navigate('calendar',{machineId:'${state.id}',machineName:'${safeStateName}',productName:'${safeProdName}'})">chevron_right</span>
               </div>
             </td>
           </tr>`}).join('')}</tbody></table>

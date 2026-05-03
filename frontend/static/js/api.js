@@ -35,7 +35,11 @@ const API = {
   async request(method, path, body = null) {
     const opts = { method, headers: this.headers() };
     if (body) opts.body = JSON.stringify(body);
-    const res = await fetch(`${API_BASE}${path}`, opts);
+    let url = `${API_BASE}${path}`;
+    if (method === 'GET') {
+      url += (url.includes('?') ? '&' : '?') + '_t=' + Date.now();
+    }
+    const res = await fetch(url, opts);
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || `Request failed: ${res.status}`);
     return data;

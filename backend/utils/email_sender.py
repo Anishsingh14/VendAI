@@ -22,7 +22,7 @@ def _send_email(to_email: str, subject: str, html_body: str, plain_body: str = '
     """Send email via Gmail SMTP with proper deliverability headers."""
     if not GMAIL_USER or not GMAIL_APP_PASSWORD:
         print(f"[EmailSender] Credentials not set. Skipping email to {to_email}")
-        return
+        raise ValueError("Email credentials (GMAIL_USER, GMAIL_APP_PASSWORD) are not configured in the server.")
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject
