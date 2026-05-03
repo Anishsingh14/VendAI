@@ -17,25 +17,25 @@ const MachinePage = {
       if (!machines.length) {
         el.innerHTML = `<div class="bg-white border border-slate-200 rounded-xl p-12 text-center"><span class="material-symbols-outlined text-slate-300 text-5xl mb-3">precision_manufacturing</span><div class="text-slate-800 font-semibold mb-1">No machines registered</div><div class="text-slate-400 text-sm">Get started by adding your first vending machine.</div></div>`;
       } else {
-        el.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">\${machines.map(m => \`
+        el.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">${machines.map(m => `
           <div class="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg hover:shadow-slate-100 hover:border-slate-300 transition-all group relative">
-            <div class="flex items-center gap-4 mb-4 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'\${m.id}',name:'\${m.name}',location:'\${m.location}'})">
+            <div class="flex items-center gap-4 mb-4 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'${m.id}',name:'${m.name}',location:'${m.location}'})">
               <div class="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center"><span class="material-symbols-outlined text-primary">precision_manufacturing</span></div>
               <div>
-                <div class="text-base font-semibold text-slate-800">\${m.name}</div>
-                <div class="text-sm text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span>\${m.location}</div>
+                <div class="text-base font-semibold text-slate-800">${m.name}</div>
+                <div class="text-sm text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span>${m.location}</div>
               </div>
             </div>
             <div class="flex items-center justify-between text-xs text-slate-400">
-              <span>ID: \${m.id.slice(0,8)}…</span>
+              <span>ID: ${m.id.slice(0,8)}…</span>
               <div class="flex items-center gap-2">
-                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-500 p-1 rounded-md hover:bg-red-50" title="Delete Machine" data-delete-machine="\${m.id}" data-machine-name="\${m.name}">
+                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-500 p-1 rounded-md hover:bg-red-50" title="Delete Machine" data-delete-machine="${m.id}" data-machine-name="${m.name}">
                   <span class="material-symbols-outlined text-[18px]">delete</span>
                 </button>
-                <span class="material-symbols-outlined text-[18px] text-slate-300 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'\${m.id}',name:'\${m.name}',location:'\${m.location}'})">chevron_right</span>
+                <span class="material-symbols-outlined text-[18px] text-slate-300 cursor-pointer" onclick="Router.navigate('machine-detail',{id:'${m.id}',name:'${m.name}',location:'${m.location}'})">chevron_right</span>
               </div>
             </div>
-          </div>\`).join('')}</div>`;
+          </div>`).join('')}</div>`;
 
         // Bind delete buttons
         document.querySelectorAll('[data-delete-machine]').forEach(btn => {
