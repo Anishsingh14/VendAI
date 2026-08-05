@@ -20,7 +20,7 @@
 
 ## 📌 Executive Overview
 
-**VendAI** is an end-to-end intelligent inventory management web platform built to solve stockouts in campus vending machines without requiring costly IoT hardware or sensors. Developed by **Anish Singh**, the system specifically addresses the unique restocking needs of college vending machines that house both critical student welfare items (sanitary pads, tampons, first-aid/medications) and daily consumables (chocolates, snacks, beverages).
+**VendAI** is an end-to-end intelligent inventory management web platform built to solve stockouts in campus vending machines without requiring costly IoT hardware or sensors. The system specifically addresses the unique restocking needs of vending machines that houses both critical individual welfare items (sanitary pads, tampons, first-aid/medications) and daily consumables (chocolates, snacks, beverages).
 
 By leveraging a **Random Forest Regressor** model trained on historical usage patterns, **VendAI** predicts exact per-product depletion dates, displays stock health on a dynamic calendar view, and dispatches automated dual-threshold email alerts to operators before critical items run dry.
 
