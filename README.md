@@ -7,10 +7,12 @@
 [![Flask](https://img.shields.io/badge/Flask-Backend-000000.svg?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-ML%20Engine-F7931E.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-Database%20%26%20Auth-3ECF8E.svg?logo=supabase&logoColor=white)](https://supabase.com/)
-[![Render](https://img.shields.io/badge/Render-Deployed-46E3B7.svg?logo=render&logoColor=white)](https://render.com/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vendai--app.onrender.com-brightgreen.svg?logo=render&logoColor=white)](https://vendai-app.onrender.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 *A 100% software-based, hardware-free intelligent demand forecasting platform designed to eliminate stockouts in high-priority campus vending machines.*
+
+🌐 **Live Application**: [https://vendai-app.onrender.com](https://vendai-app.onrender.com)
 
 ---
 
@@ -21,6 +23,8 @@
 **VendAI** is an end-to-end intelligent inventory management web platform built to solve stockouts in campus vending machines without requiring costly IoT hardware or sensors. Developed by **Anish Singh**, the system specifically addresses the unique restocking needs of college vending machines that house both critical student welfare items (sanitary pads, tampons, first-aid/medications) and daily consumables (chocolates, snacks, beverages).
 
 By leveraging a **Random Forest Regressor** model trained on historical usage patterns, **VendAI** predicts exact per-product depletion dates, displays stock health on a dynamic calendar view, and dispatches automated dual-threshold email alerts to operators before critical items run dry.
+
+🚀 **Live Deployment**: Access the live web application directly at **[https://vendai-app.onrender.com](https://vendai-app.onrender.com)**
 
 ---
 
